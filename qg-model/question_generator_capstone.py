@@ -21,8 +21,8 @@ import random
 from datasets import Dataset
 import torch
 import re
-from transformers import T5Tokenizer, T5ForConditionalGeneration, TrainingArguments, Trainer
-from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
+from transformers import T5Tokenizer, T5ForConditionalGeneration, TrainingArguments, Trainer, BertModel
+from transformers import AutoTokenizer, BertTokenizer, AutoModelForTokenClassification, pipeline
 from transformers import MarianMTModel, MarianTokenizer
 
 """## Data Loading"""
@@ -89,17 +89,17 @@ print("Duplikasi baris:", df.duplicated().sum())
 
 """### Data Sampling, Convert to HuggingFace Dataset & Split to Train and Test"""
 
-sample_size = 1000
+sample_size = 500
 df_sample = df.sample(n=sample_size, random_state=42).reset_index(drop=True)
 
-contexts_clean = df_sample['context'].tolist()
-questions_clean = df_sample['question'].tolist()
-answers_clean = df_sample['answer'].tolist()
+contexts_list = df_sample['context'].tolist()
+questions_list = df_sample['question'].tolist()
+answers_list = df_sample['answer'].tolist()
 
 raw_dataset = Dataset.from_dict({
-    "context": contexts_clean,
-    "question": questions_clean,
-    "answer": answers_clean
+    "context": contexts_list,
+    "question": questions_list,
+    "answer": answers_list
 })
 
 raw_dataset = raw_dataset.train_test_split(test_size=0.2)
@@ -107,7 +107,7 @@ raw_dataset
 
 """### Preprocessing and Tokenization"""
 
-tokenizer = T5Tokenizer.from_pretrained("t5-small")
+tokenizer = T5Tokenizer.from_pretrained("cahya/t5-base-indonesian-summarization-cased")
 
 def preprocess(text):
     input_text = f"generate question: context: {text['context']} answer: {text['answer']}"
@@ -116,6 +116,7 @@ def preprocess(text):
     model_inputs = tokenizer(
         input_text, max_length=512, padding="max_length", truncation=True
     )
+
     with tokenizer.as_target_tokenizer():
         labels = tokenizer(
             target_text, max_length=64, padding="max_length", truncation=True
@@ -129,7 +130,7 @@ tokenized_dataset = raw_dataset.map(preprocess, batched=False)
 
 """## Load and Configure T5 Model"""
 
-t5_model = T5ForConditionalGeneration.from_pretrained("t5-small")
+t5_model = T5ForConditionalGeneration.from_pretrained("cahya/t5-base-indonesian-summarization-cased")
 
 training_args = TrainingArguments(
     output_dir="./results",
@@ -191,7 +192,7 @@ def generate_questions(text, num_questions=5):
     for ans in answers:
         context = get_sentence_with_answer(text, ans)
 
-        input_text = f"generate question: {context} answer: {ans}"
+        input_text = f"generate question: context: {context} answer: {answer}"
 
         inputs = tokenizer(
             input_text,
