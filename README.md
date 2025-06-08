@@ -1,4 +1,4 @@
-# Machine Learning Repository
+# Machine Learning Repository🤖🧠
 **BrevityAI** adalah aplikasi berbasis website untuk peringkasan teks dan <i>generate</i> pertanyaan dari teks. Terdapat 2 model machine learning yang digunakan dalam BrevityAI yaitu **model TensorFlow untuk <i>text summarization</i>** dan **model berbasis T5 dari Hugging Face untuk <i>question generation</i>**.
 
 Repository ini terdiri dari kedua model tersebut yang dipisahkan dalam 2 folder sebagai berikut:
@@ -8,14 +8,14 @@ ml-models/
 │ ├── Question_Generator_Capstone.ipynb
 │ ├── question_generator_capstone.py
 ├──ts-model/
-│ ├── Text_Summarization_Caps.ipynb
-│ ├── text_summarization_capstone.py(1).py
+│ ├── TEXT-SUMMARIZATION-FIX.ipynb
+│ ├── TEXT-SUMMARIZATION-FIX.py
 └──README.md
 ```
 
-## Text Summarization Model
+## 📑 Text Summarization Model 📑
 
-## Question Generation Model
+## ❔ Question Generation Model ❔
 Model question generation (QG) merupakan model yang dapat menghasilkan pertanyaan relevan dari teks yang diberikan oleh pengguna dalam Bahasa Indonesia. Model ini dibangun dengan menggunakan model Transformer berbasis T5 yang kemudian di fine tune dengan dataset SQuAD versi Indonesia.
 
 **1. Dataset**
