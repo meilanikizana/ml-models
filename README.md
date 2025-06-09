@@ -20,13 +20,13 @@ Model text summarization merupakan model yang dapat menghasilkan ringkasan dari 
 - Original (Kaggle): [IndoSum-dataset](https://www.kaggle.com/datasets/linkgish/indosum)
 
 **2. Tokenisasi**
-
     ```
     from tensorflow.keras.preprocessing.text import Tokenizer
     from tensorflow.keras.preprocessing.sequence import pad_sequences
     input_tokenizer = Tokenizer(num_words=10000, oov_token="<OOV>")
     input_tokenizer.fit_on_texts(X_train)
     ```
+    
 Proses tokenisasi dilakukan dengan Keras Tokenizer dari TensorFlow dengan parameter num_words=10000 dan token khusus <OOV> untuk menangani kata-kata yang tidak dikenal. Model menggunakan representasi vektor dari teks yang dipadding hingga panjang 200 token untuk menjaga konsistensi input.
 
 **3. Model TensorFlow**
