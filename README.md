@@ -27,7 +27,7 @@ Model text summarization merupakan model yang dapat menghasilkan ringkasan dari 
     input_tokenizer = Tokenizer(num_words=10000, oov_token="<OOV>")
     input_tokenizer.fit_on_texts(X_train)
     ```
-    Proses tokenisasi dilakukan dengan Keras Tokenizer dari TensorFlow dengan parameter num_words=10000 dan token khusus <OOV> untuk menangani kata-kata yang tidak dikenal. Model menggunakan representasi vektor dari teks yang dipadding hingga panjang 200 token untuk menjaga konsistensi input.
+Proses tokenisasi dilakukan dengan Keras Tokenizer dari TensorFlow dengan parameter num_words=10000 dan token khusus <OOV> untuk menangani kata-kata yang tidak dikenal. Model menggunakan representasi vektor dari teks yang dipadding hingga panjang 200 token untuk menjaga konsistensi input.
 
 **3. Model TensorFlow**
 
