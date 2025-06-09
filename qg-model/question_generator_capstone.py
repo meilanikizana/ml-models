@@ -91,7 +91,7 @@ print("Duplikasi baris:", df.duplicated().sum())
 
 """### Data Sampling, Convert to HuggingFace Dataset & Split to Train and Test"""
 
-sample_size = 1000
+sample_size = 2000
 df_sample = df.sample(n=sample_size, random_state=42).reset_index(drop=True)
 
 contexts_list = df_sample['context'].tolist()
@@ -142,7 +142,7 @@ training_args = TrainingArguments(
     num_train_epochs=1,
     weight_decay=0.01,
     logging_dir="./logs",
-    logging_steps=500,
+    logging_steps=100,
     report_to="none",
     fp16=True
 )
