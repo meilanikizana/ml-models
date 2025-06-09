@@ -23,8 +23,6 @@ Model text summarization merupakan model yang dapat menghasilkan ringkasan dari 
     ```
     from tensorflow.keras.preprocessing.text import Tokenizer
     from tensorflow.keras.preprocessing.sequence import pad_sequences
-    ```
-    ```
     input_tokenizer = Tokenizer(num_words=10000, oov_token="<OOV>")
     input_tokenizer.fit_on_texts(X_train)
     ```
@@ -35,8 +33,6 @@ Proses tokenisasi dilakukan dengan Keras Tokenizer dari TensorFlow dengan parame
     ```
     pythonfrom tensorflow.keras.models import Model
     from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, GlobalAveragePooling1D, Dense, Dropout
-    ```
-    ```
     model = TextSummarizerModel(
         input_vocab_size=len(input_tokenizer.word_index) + 1,
         output_vocab_size=len(output_tokenizer.word_index) + 1,
@@ -68,7 +64,6 @@ Training dilakukan selama maksimal 10 epoch dengan batch size 32 dan early stopp
 
 **5. Pemrosesan Teks**
     ```
-
     def clean_text(text):
         """Pembersihan teks untuk Bahasa Indonesia"""
         text = re.sub(r'\s+', ' ', text)
