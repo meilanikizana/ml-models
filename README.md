@@ -14,6 +14,66 @@ ml-models/
 ```
 
 ## 📑 Text Summarization Model 📑
+Model text summarization merupakan model yang dapat menghasilkan ringkasan dari teks panjang yang diberikan oleh pengguna dalam Bahasa Indonesia. Model ini dibangun dengan pendekatan ekstraktif menggunakan arsitektur Bidirectional LSTM pada framework TensorFlow/Keras yang dilatih pada dataset IndoSum untuk memilih kalimat-kalimat penting dari teks asli.
+
+**1. Dataset**
+- Original (Kaggle): [IndoSum-dataset](https://www.kaggle.com/datasets/linkgish/indosum)
+
+**2. Tokenisasi**
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+input_tokenizer = Tokenizer(num_words=10000, oov_token="<OOV>")
+input_tokenizer.fit_on_texts(X_train)
+
+Proses tokenisasi dilakukan dengan Keras Tokenizer dari TensorFlow dengan parameter num_words=10000 dan token khusus <OOV> untuk menangani kata-kata yang tidak dikenal. Model menggunakan representasi vektor dari teks yang dipadding hingga panjang 200 token untuk menjaga konsistensi input.
+
+**3. Model TensorFlow**
+pythonfrom tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Embedding, Bidirectional, LSTM, GlobalAveragePooling1D, Dense, Dropout
+
+model = TextSummarizerModel(
+    input_vocab_size=len(input_tokenizer.word_index) + 1,
+    output_vocab_size=len(output_tokenizer.word_index) + 1,
+    embedding_dim=128
+).build_model()
+
+Model menggunakan arsitektur neural network berbasis Bidirectional LSTM dari TensorFlow/Keras untuk memprediksi tingkat kepentingan kalimat. Arsitektur ini memungkinkan model untuk memahami konteks kalimat dari kedua arah dan menentukan kalimat mana yang paling relevan untuk dimasukkan dalam ringkasan.
+Model menggunakan arsitektur neural network dengan komponen utama:
+
+- Embedding Layer: Mengubah token menjadi vektor representasi dengan dimensi 128
+- Bidirectional LSTM: Memahami konteks kalimat dari dua arah
+- Global Average Pooling: Menggabungkan representasi token menjadi representasi kalimat
+- Dense Layers dengan Dropout: Mempelajari pola dan mencegah overfitting
+- Output Layer: Memprediksi skor kepentingan kalimat (0-1)
+
+**4. Training**
+history = model.fit(
+    X_train_seq, y_train_importance,
+    validation_data=(X_val_seq, y_val_importance),
+    epochs=10, 
+    batch_size=32,
+    callbacks=[EarlyStopping(monitor='val_loss', patience=5)]
+)
+
+Training dilakukan selama maksimal 10 epoch dengan batch size 32 dan early stopping untuk menghentikan training jika tidak ada peningkatan pada validation loss. Model dilatih untuk memprediksi tingkat kepentingan kalimat berdasarkan konteks dalam teks.
+
+**5. Pemrosesan Teks**
+def clean_text(text):
+    """Pembersihan teks untuk Bahasa Indonesia"""
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'[^\w\s.,!?;:\-()]', '', text)
+    return text.strip()
+    
+def simple_sentence_tokenize(text):
+    """Tokenisasi kalimat sederhana"""
+    return re.split(r'(?<=[.!?])\s+', text.replace('\n', ' ').strip())
+    
+Untuk mendukung proses summarization, digunakan fungsi pemrosesan teks khusus Bahasa Indonesia yang membersihkan teks dan memisahkan kalimat berdasarkan tanda baca. Pendekatan ini memungkinkan model untuk memproses teks secara efektif bahkan tanpa library NLP khusus.
+
+### Hugging Face Model
+Model ini dapat diakses melalui Hugging Face: [Indonesian-TS-Model]
+(https://huggingface.co/fransiskaarthaa/summarizereal-JS)
 
 ## ❔ Question Generation Model ❔
 Model question generation (QG) merupakan model yang dapat menghasilkan pertanyaan relevan dari teks yang diberikan oleh pengguna dalam Bahasa Indonesia. Model ini dibangun dengan menggunakan model Transformer berbasis T5 yang kemudian di fine tune dengan dataset SQuAD versi Indonesia.
