@@ -20,6 +20,7 @@ Model text summarization merupakan model yang dapat menghasilkan ringkasan dari 
 - Original (Kaggle): [IndoSum-dataset](https://www.kaggle.com/datasets/linkgish/indosum)
 
 **2. Tokenisasi**
+
     ```
     from tensorflow.keras.preprocessing.text import Tokenizer
     from tensorflow.keras.preprocessing.sequence import pad_sequences
