@@ -72,8 +72,7 @@ def simple_sentence_tokenize(text):
 Untuk mendukung proses summarization, digunakan fungsi pemrosesan teks khusus Bahasa Indonesia yang membersihkan teks dan memisahkan kalimat berdasarkan tanda baca. Pendekatan ini memungkinkan model untuk memproses teks secara efektif bahkan tanpa library NLP khusus.
 
 ### Hugging Face Model
-Model ini dapat diakses melalui Hugging Face: [Indonesian-TS-Model]
-(https://huggingface.co/fransiskaarthaa/summarizereal-JS)
+Model ini dapat diakses melalui Hugging Face: [Indonesian-TS-Model](https://huggingface.co/fransiskaarthaa/summarizereal-JS)
 
 ## ❔ Question Generation Model ❔
 Model question generation (QG) merupakan model yang dapat menghasilkan pertanyaan relevan dari teks yang diberikan oleh pengguna dalam Bahasa Indonesia. Model ini dibangun dengan menggunakan model Transformer berbasis T5 yang kemudian di fine tune dengan dataset SQuAD versi Indonesia.
