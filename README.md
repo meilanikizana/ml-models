@@ -8,8 +8,8 @@ ml-models/
 │ ├── Question_Generator_Capstone.ipynb
 │ ├── question_generator_capstone.py
 ├──ts-model/
-│ ├── TEXT-SUMMARIZATION-FIX.ipynb
 │ ├── TEXT-SUMMARIZATION-FIX.py
+│ ├── TEXT_SUMMARIZATION_CLEAN.ipynb
 └──README.md
 ```
 
